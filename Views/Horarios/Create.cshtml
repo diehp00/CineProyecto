@@ -1,0 +1,23 @@
+@model Horario
+
+<div class="container my-5">
+    <h2 class="text-center text-primary mb-4">Crear Nuevo Horario</h2>
+
+    <div class="form-container">
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label for="FechaHora">Fecha y Hora</label>
+                <input type="datetime-local" asp-for="FechaHora" class="form-control" />
+                <span asp-validation-for="FechaHora" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="SalaId">Sala</label>
+                <select asp-for="SalaId" class="form-control" asp-items="ViewBag.Salas">
+                    <option value="">Seleccione una sala</option>
+                </select>
+                <span asp-validation-for="SalaId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>

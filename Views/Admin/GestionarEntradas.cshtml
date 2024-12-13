@@ -1,0 +1,68 @@
+@model List<Entrada>
+
+@{
+    ViewData["Title"] = "Gestionar Entradas";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>@ViewData["Title"]</title>
+    <style>
+        .table-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container my-5">
+        <h2 class="text-center text-primary mb-4">Gestionar Entradas</h2>
+        <!-- Tabla -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Película</th>
+                        <th scope="col">Horario</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Fecha de Compra</th>
+                        <th scope="col">Asientos</th>
+                        <th scope="col">Temporal</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entrada in Model)
+                    {
+                        <tr>
+                            <td>@entrada.Id</td>
+                            <td>@entrada.UsuarioId</td>
+                            <td>@entrada.PeliculaId</td>
+                            <td>@entrada.HorarioId</td>
+                            <td>@entrada.CantidadEntradas</td>
+                            <td>@entrada.FechaCompra.ToString("dd/MM/yyyy")</td>
+                            <td>@entrada.Asientos</td>
+                            <td>@(entrada.EsTemporal ? "Sí" : "No")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- Botón adicional -->
+        <div class="text-center">
+            <a class="btn btn-danger mt-3" href="/Admin/AdministradorDashboard">Cancelar</a>
+            <a class="btn btn-success mt-3" href="/">Comprar Entradas</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

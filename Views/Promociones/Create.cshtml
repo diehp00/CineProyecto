@@ -1,0 +1,60 @@
+@model Promocion
+
+@{
+    ViewData["Title"] = "Crear Promoción";
+}
+
+<h2>Crear Promoción</h2>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Mostrar errores de validación -->
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="UsuarioId">Usuario</label>
+        <select asp-for="UsuarioId" class="form-control"
+            asp-items="@(ViewData["Usuarios"] as IEnumerable<SelectListItem>)"></select>
+        <span asp-validation-for="UsuarioId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Descripcion">Descripcion</label>
+        <textarea asp-for="Descripcion" class="form-control"></textarea>
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+
+<div class="form-group">
+    <label for="FechaInicio">Fecha de Inicio</label>
+    <input asp-for="FechaInicio" class="form-control" type="date" />
+    <span asp-validation-for="FechaInicio" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label for="FechaFin">Fecha de Fin</label>
+    <input asp-for="FechaFin" class="form-control" type="date" />
+    <span asp-validation-for="FechaFin" class="text-danger"></span>
+</div>
+
+    <div class="form-group mb-3">
+        <label for="descuento" class="form-label">Descuento</label>
+        <input asp-for="Descuento" type="number" step="0.1" class="form-control" id="Descuento" min="0" max="10"
+            required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+
+<script>
+    document.getElementById("FechaFin").addEventListener("change", function() {
+        const fechaInicio = new Date(document.getElementById("FechaInicio").value);
+        const fechaFin = new Date(this.value);
+
+        if (fechaFin <= fechaInicio) {
+            alert("La fecha de finalización debe ser posterior a la fecha de inicio.");
+            this.value = "";
+        }
+    });
+</script>

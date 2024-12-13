@@ -1,0 +1,26 @@
+@model List<Promocion>
+
+<h2>Promociones</h2>
+    @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Descripción</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Descuento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var promocion in Model)
+        {
+            <tr>
+                <td>@promocion.Descripcion</td>
+                <td>@promocion.FechaInicio.ToString("dd/MM/yyyy")</td>
+                <td>@promocion.FechaFin.ToString("dd/MM/yyyy")</td>
+                <td>@promocion.Descuento%</td>
+            </tr>
+        }
+    </tbody>
+</table>

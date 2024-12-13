@@ -1,0 +1,47 @@
+@model Usuario
+
+@{
+    ViewData["Title"] = "Perfil de " + Model.NombreUsuario;
+}
+
+<h1>Perfil de @Model.NombreUsuario</h1>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Correo Electrónico: </strong> @Model.CorreoElectronico</p>
+        <p><strong>Nombre de Usuario: </strong> @Model.NombreUsuario</p>
+
+    </div>
+</div>
+
+
+
+<h2>Películas Compradas</h2>
+@if (Model.Entradas.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Género</th>
+                <th>Fecha de Compra</th>
+                <th>Asientos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entrada in Model.Entradas)
+            {
+                <tr>
+                    <td>@entrada.Pelicula.Titulo</td>
+                    <td>@entrada.Pelicula.Genero</td>
+                    <td>@entrada.FechaCompra.ToString("dd/MM/yyyy")</td>
+                    <td>@entrada.Asientos</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No ha comprado ninguna película.</p>
+}

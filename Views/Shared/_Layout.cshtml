@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CINEvSIION</title>
+    @* <link rel="stylesheet" href="~/css/Layout.css" asp-append-version="true" /> *@
+
+    <link rel="icon" width="20px" type="image/x-icon" href="~/imgs/LogoCine1.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        /* Estilos que aseguran el footer abajo */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #ffffff;
+        }
+
+        .container {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        footer {
+            background-color: #1c1c1c;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #f39c12 !important;
+        }
+
+        .banner {
+            background: url('~/imgs/banner.jpg') no-repeat center center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .footer-link {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.8rem;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            /* Azul eléctrico */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            /* Sombra para mayor impacto */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="/">CINEvSIION</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Entradas/MisEntradas">Entradas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Contacto">Contacto</a>
+                        </li>
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Admin/AdministradorDashboard">Administración</a>
+                            </li>
+                        }
+                    </ul>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-outline-light me-2" href="/Usuarios/Perfil">Mi Perfil</a>
+
+                        <form asp-controller="Login" asp-action="Logout" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-link nav-link text-white">Cerrar Sesión</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-light me-2" href="/Login/Index">Iniciar Sesión</a>
+                        <a class="btn btn-primary" href="/Registro">Registro</a>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>CINEvSIION</h5>
+                    <p>Para todos los amantes del cine.</p>
+                    <div>
+                        <a href="https://instagram.com" class="text-white me-3"><i
+                                class="fab fa-instagram fa-lg"></i></a>
+                        <a href="https://facebook.com" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="https://twitter.com" class="text-white"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="footer-link" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
+                        <li><a class="footer-link" href="/Entradas/MisEntradas">Entradas</a></li>
+                        <li><a class="footer-link" asp-area="" asp-controller="Home" asp-action="Contacto">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contáctanos</h5>
+                    <p>IES SAN SEBASTIÁN</p>
+                    <p><i class="fas fa-phone"></i> 677135060</p>
+                    <p><i class="fas fa-envelope"></i> hilazoparra@gmail.com</p>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p>&copy; 2024 CINEvSIION. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

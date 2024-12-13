@@ -1,0 +1,320 @@
+﻿@model List<Pelicula>
+
+@{
+    ViewData["Title"] = "Inicio";
+    var peliculas = Model;
+}
+
+<style>
+    /* Estilo para el texto principal */
+    h1.display-4 {
+        font-weight: bold;
+        color: #f8d71d;
+        /* Color dorado inspirado en luces de cine */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    p.lead {
+        font-size: 1.2rem;
+        font-style: italic;
+        color: #000;
+    }
+
+    /* Carrusel de Películas */
+    .carousel .carousel-item {
+        position: relative;
+        overflow: hidden;
+        height: 500px;
+        /* Altura fija */
+        background-color: #000;
+    }
+
+
+    /* Estilo del carrusel */
+    .carousel {
+        position: relative;
+    }
+
+    .carousel .carousel-item {
+        height: 650px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .carousel .carousel-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(80%);
+        transition: transform 0.8s ease-in-out;
+    }
+
+    .carousel .carousel-item:hover img {
+        transform: scale(1.05);
+    }
+
+    .carousel-caption {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 1.5rem;
+        border-radius: 10px;
+        max-width: 80%;
+    }
+
+    .carousel-caption h5 {
+        font-size: 2rem;
+        color: #f8d71d;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+        animation: fadeInDown 1s ease-in-out;
+    }
+
+    .carousel-caption p {
+        font-size: 1.2rem;
+        color: #ddd;
+        margin-top: 0.5rem;
+        animation: fadeInUp 1s ease-in-out;
+    }
+
+    /* Indicadores personalizados */
+    .carousel-indicators [data-bs-target] {
+        background-color: #f8d71d;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        margin: 0 5px;
+        transition: transform 0.3s ease;
+    }
+
+    .carousel-indicators .active {
+        transform: scale(1.3);
+        background-color: #fff;
+    }
+
+    /* Botones personalizados */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: #f8d71d;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    }
+
+       /* Animaciones */
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Tarjetas de Películas */
+    .card {
+        border: none;
+        overflow: hidden;
+        position: relative;
+        background: #1c1c1c;
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        /* Habilita flexbox */
+        flex-direction: column;
+        /* Asegura que el contenido esté en columna */
+        justify-content: space-between;
+        /* Mantiene el contenido distribuido */
+        width: auto;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .card-img-top {
+        width: auto;
+        /* Permite que la imagen mantenga su tamaño original */
+        height: auto;
+        /* Ajusta la altura automáticamente */
+        display: block;
+        /* Asegura que no haya márgenes adicionales alrededor de la imagen */
+        max-width: 100%;
+        /* Garantiza que la imagen no exceda el contenedor si es más grande */
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card-body {
+        background-color: #000;
+        /* Fondo negro */
+        padding: 1rem;
+        min-height: 120px;
+        /* Asegura que todas las tarjetas tengan la misma altura mínima */
+        display: flex;
+        /* Habilita flexbox */
+        flex-direction: column;
+        /* Alinea el contenido en columna */
+        justify-content: center;
+        /* Centra verticalmente el contenido */
+        text-align: center;
+    }
+
+    .card-title {
+        margin-bottom: 0.5rem;
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #f8d71d;
+        /* Color dorado */
+    }
+
+    .card-text {
+        color: #fff;
+        /* Texto blanco */
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+
+    /* Overlay que aparece al pasar el mouse */
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .card:hover .overlay {
+        opacity: 1;
+    }
+
+    .overlay a {
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        background: #f8d71d;
+        color: #000;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        border-radius: 5px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .overlay a:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.8);
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+<div class="container text-center mt-5 text-light">
+
+        <img src="~/imgs/LogoCine1.png" alt="Logo CineVision" style="max-width: 200px; height: auto; margin-bottom: 20px;">
+
+
+    <h1 class="display-4">Bienvenido @User.Identity.Name</h1>
+    <p class="lead">¡Nos alegra que estés aquí! Explora nuestras películas y disfruta de promociones exclusivas.</p>
+
+    <div id="peliculasCarousel" class="carousel slide shadow-sm rounded" data-bs-ride="carousel">
+        <!-- Indicadores -->
+        <div class="carousel-indicators">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <button type="button" data-bs-target="#peliculasCarousel" data-bs-slide-to="@i"
+                    class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")"
+                    aria-label="Slide @(i + 1)"></button>
+            }
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var pelicula = Model[i];
+                <div class="carousel-item @(i == 0 ? "active" : "")">
+                    <img src="@pelicula.ImagenUrl" alt="@pelicula.Titulo">
+                    <div class="carousel-caption">
+                        <h5>@pelicula.Titulo</h5>
+                        <p>¡No te pierdas esta increíble película!</p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Controles -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#peliculasCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#peliculasCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+
+        
+        <!-- Tarjetas de Películas en Cartelera -->
+        <div class="my-5">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (var pelicula in peliculas)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="@pelicula.ImagenUrl" class="card-img-top" alt="@pelicula.Titulo">
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-light">@pelicula.Titulo</h5>
+                                <p class="card-text text-light">Descubre esta película y vive una experiencia única.</p>
+                            </div>
+                            <div class="overlay">
+                                <a href="@Url.Action("Comprar", "Entradas", new { id = pelicula.Id })">Comprar Entradas</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+            <!-- Sección de Promociones Exclusivas -->
+            <div class="my-5">
+                <h2 class="text-primary">Promociones Exclusivas</h2>
+                <p>Regístrate y disfruta de descuentos exclusivos en tus entradas.</p>
+                <a href="/Promociones" class="btn btn-success btn-lg">Ver Promociones</a>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            // Agregar animación a las tarjetas al pasar el mouse
+            document.querySelectorAll('.card').forEach(card => {
+                const overlay = card.querySelector('.overlay');
+                card.addEventListener('mouseenter', () => {
+                    overlay.style.opacity = 1;
+                });
+                card.addEventListener('mouseleave', () => {
+                    overlay.style.opacity = 0;
+                });
+            });
+        </script>

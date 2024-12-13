@@ -1,0 +1,84 @@
+@model List<Pelicula>
+
+@{
+    ViewData["Title"] = "Gestionar Películas";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        h2 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .table {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .btn {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <!-- Encabezado -->
+        <h2 class="text-center text-primary">Gestionar Películas</h2>
+
+        <!-- Tabla de películas -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">Título</th>
+                        <th scope="col">Género</th>
+                        <th scope="col">Fecha de Estreno</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pelicula in Model)
+                    {
+                        <tr>
+                            <td>@pelicula.Titulo</td>
+                            <td>@pelicula.Genero</td>
+                            <td>@pelicula.FechaEstreno.ToShortDateString()</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center">
+                                    <a class="btn btn-warning btn-sm me-2" href="/Peliculas/Edit/@pelicula.Id">Editar</a>
+                                    <a class="btn btn-danger btn-sm" href="/Peliculas/Delete/@pelicula.Id">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Botón para agregar películas -->
+        <div class="text-center">
+            <a class="btn btn-danger mt-3" href="/Admin/AdministradorDashboard">Cancelar</a>
+            <a class="btn btn-success mt-3" href="/Peliculas/Create">Agregar Película</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

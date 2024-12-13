@@ -1,0 +1,779 @@
+@model ComprarEntradaViewModel
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compra de Entradas - CINEvSIION</title>
+    @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+    <style>
+        .seat {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            background-image: url('/imgs/butaca-ocupada.png');
+            /* Imagen para asiento libre */
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .seat.selected {
+            background-image: url('/imgs/Naranja.png');
+            /* Imagen para asiento seleccionado */
+        }
+
+        .seat.occupied {
+            background-image: url('/imgs/roja-ocupada.png');
+            /* Imagen para asiento ocupado */
+            pointer-events: none;
+            /* Evitar clics en asientos ocupados */
+        }
+
+        /* Estilo para el video responsivo */
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .row-number {
+            font-weight: bold;
+            font-size: 16px;
+            width: 60px;
+            text-align: center;
+        }
+
+        .separator {
+            height: 20px;
+            width: 100%;
+            background-color: #ffffff;
+            /* Color del separador */
+            margin: 10px 0;
+            /* Espaciado adicional */
+        }
+
+        .modal-content {
+            border-radius: 10px;
+            border: none;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        .modal-footer {
+            border-top: none;
+            padding: 15px 20px;
+        }
+
+        #asientosContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+            gap: 10px;
+            justify-items: center;
+        }
+
+        .text-muted {
+            font-size: 14px;
+        }
+
+
+        .modal-content {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .modal-footer {
+            border-top: none;
+            padding: 15px;
+        }
+
+        #paymentModal .text-center p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .btn-custom-payment {
+            background-color: #4CAF50;
+            /* Un tono de verde personalizado */
+            border: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: not-allowed;
+            /* Indicador visual cuando está deshabilitado */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom-payment:hover:enabled {
+            background-color: #45a049;
+            /* Color para el hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom-payment:disabled {
+            opacity: 0.6;
+        }
+
+        .disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        input:invalid {
+            border-color: red;
+        }
+
+        input:valid {
+            border-color: green;
+        }
+
+        input[type="month"]:invalid {
+            border-color: red;
+        }
+
+        input[type="month"]:valid {
+            border-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-primary mb-4">Compra de Entradas para @Model.Titulo</h2>
+
+        <div class="row">
+            <div class="col-md-4">
+                <img src="@Model.ImagenUrl" class="img-fluid rounded shadow-sm" alt="@Model.Titulo">
+            </div>
+            <div class="col-md-8">
+                <p>@Model.Descripcion</p>
+                <p><strong>El precio de la entrada es de 3 Euros</strong></p>
+                <form asp-action="Comprar" asp-controller="Entradas" asp-route-peliculaId="@Model.PeliculaId"
+                    method="post" onsubmit="return validarCondiciones(event, true, 'formulario')">
+                    <input type="hidden" name="horarioId" id="horarioIdInput" />
+                    <input type="hidden" name="cantidadEntradas" id="cantidadEntradasInput" />
+                    <input type="hidden" name="asientosSeleccionados" id="asientosSeleccionados" />
+
+                    <!-- Selector de Horarios -->
+                    <div class="mb-3">
+                        <label for="horarioId" class="form-label">Selecciona el Horario</label>
+                        <select asp-for="HorarioId" class="form-control" id="horarioId" required>
+                            <option value="" disabled selected>Seleccione un horario</option>
+                            @foreach (var horario in Model.Horarios)
+                            {
+                                <option value="@horario.Id">@horario.FechaHora.ToString("g")</option>
+                            }
+                        </select>
+                    </div>
+
+
+                    <!-- Selector de Promociones -->
+                    <div class="mb-3">
+                        @if (Model.Promociones.Any())
+                        {
+                            <label for="promocionId" class="form-label">Promociones Disponibles</label>
+                            <select asp-for="PromocionId" class="form-control" id="promocionId">
+                                <option value="" disabled selected>Seleccione una promoción</option>
+                                @foreach (var promocion in Model.Promociones)
+                                {
+                                    <option value="@promocion.Id" data-descuento="@promocion.Descuento">
+                                        @promocion.Descripcion - Descuento: @promocion.Descuento%
+                                    </option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <p class="text-muted">Las promociones no están disponibles para tu tipo de usuario.</p>
+                        }
+                    </div>
+
+
+
+                    <!-- Cantidad de Entradas -->
+                    <div class="mb-3">
+                        <label for="cantidadEntradas" class="form-label">Cantidad de Entradas</label>
+                        <input type="number" asp-for="CantidadEntradas" class="form-control" id="cantidadEntradas"
+                            min="1" required />
+                        <span asp-validation-for="CantidadEntradas" class="text-danger"></span>
+                    </div>
+
+                    <button type="button" id="btnSelectSeats" class="btn btn-primary mt-3 w-100"
+                        onclick="mostrarPopupAsientos()">Seleccionar Asientos</button>
+                    <button type="button" id="btnMakePayment" class="btn-custom-payment mt-3 w-100" disabled>Realizar
+                        Pago</button>
+
+                    <button type="submit" id="btnConfirmPurchase" class="btn btn-success mt-3 w-100" disabled>Confirmar
+                        Compra</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Selección de Asientos -->
+    <div class="modal fade" id="asientosModal" tabindex="-1" aria-labelledby="asientosModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content shadow-lg rounded">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="asientosModalLabel">Selecciona tus Asientos</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <p class="text-muted">Haz clic en los asientos para seleccionarlos. Los asientos ocupados están
+                            marcados en rojo.</p>
+                    </div>
+                    <div id="asientosContainer" class="d-flex flex-wrap justify-content-center gap-3"></div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        onclick="reiniciarFormulario()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarAsientos()">Guardar Asientos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Pago -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Detalles del Pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <p><strong>Entradas seleccionadas:</strong> <span id="modalNumEntradas">0</span></p>
+                        <p><strong>Precio total (sin descuento):</strong> €<span
+                                id="modalPrecioTotalSinDescuento">0.00</span></p>
+                        <p><strong>Descuento aplicado:</strong> <span id="modalDescuento">%0</span></p>
+                        <p><strong>Precio final:</strong> €<span id="modalPrecioFinal">0.00</span></p>
+                    </div>
+                    <form id="formPago" onsubmit="return validarFormularioPago()">
+                        <div class="mb-3">
+                            <label for="numeroTarjeta" class="form-label">Número de Tarjeta</label>
+                            <input type="text" id="numeroTarjeta" class="form-control" placeholder="1234 5678 9012 3456"
+                                required pattern="\d{16}" maxlength="16" inputmode="numeric">
+                            <small class="text-muted">Debe contener 16 dígitos.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" id="cvv" class="form-control" placeholder="123" required pattern="\d{3}"
+                                maxlength="3" inputmode="numeric">
+                            <small class="text-muted">Debe contener 3 dígitos.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaExpiracion" class="form-label">Fecha de Expiración</label>
+                            <input type="month" id="fechaExpiracion" class="form-control" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="submit" id="btnSimulatePayment" class="btn btn-success">Pagar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        onclick="reiniciarFormulario()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @{
+        string trailerEmbedUrl = string.IsNullOrEmpty(Model.TrailerUrl) ? null : Model.TrailerUrl.Replace("watch?v=",
+        "embed/");
+    }
+    <div>
+
+        @if (!string.IsNullOrEmpty(trailerEmbedUrl))
+        {
+            <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                <iframe src="@Model.TrailerUrl.Replace("watch?v=", "embed/")" title="Tráiler de @Model.Titulo"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        }
+        else
+        {
+            <p>No hay tráiler disponible para esta película.</p>
+        }
+    </div>
+
+
+
+
+
+    <script>
+        const asientosSeleccionados = [];
+        const CAPACIDAD_SALA = @Model.Capacidad ?? 0; // 0 por defecto si es null
+        const peliculaId = @Model.PeliculaId ?? 0; // 0 por defecto si es null
+
+        function prepararFormulario() {
+            const horario = document.getElementById("horarioId").value;
+            const cantidad = document.getElementById("cantidadEntradas").value;
+
+            if (!horario || cantidad <= 0) {
+                alert("Por favor, selecciona un horario y una cantidad válida.");
+                return false;
+            }
+
+            document.getElementById("horarioIdInput").value = horario;
+            document.getElementById("cantidadEntradasInput").value = cantidad;
+            document.getElementById("asientosSeleccionados").value = asientosSeleccionados.join(",");
+            return true;
+        }
+
+        async function mostrarPopupAsientos() {
+            if (validarCondiciones(null, false, "modal")) {
+                // Si las validaciones pasan, abre el modal
+                generarAsientos(
+                    document.getElementById("cantidadEntradas").value,
+                    CAPACIDAD_SALA,
+                    peliculaId,
+                    document.getElementById("horarioId").value
+                );
+                const modal = new bootstrap.Modal(document.getElementById('asientosModal'));
+                modal.show();
+            }
+        }
+
+        async function generarAsientos(cantidad, capacidad, peliculaId, horarioId) {
+            const container = document.getElementById("asientosContainer");
+            container.innerHTML = ""; // Limpia el contenedor de asientos
+            asientosSeleccionados.length = 0; // Reinicia los asientos seleccionados
+
+            const columnas = 15; // Número estándar de columnas
+            const filas = Math.ceil(capacidad / columnas); // Calcular filas en función de la capacidad
+
+            let asientosOcupados = [];
+            try {
+                // Llama al backend para obtener los asientos ocupados
+                const url = `/Entradas/AsientosOcupados/${peliculaId}/${horarioId}`;
+                const response = await fetch(url);
+
+                if (response.ok) {
+                    asientosOcupados = await response.json(); // Lista de asientos ocupados
+                } else {
+                    console.error("Error al cargar los asientos ocupados:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error en la solicitud de asientos ocupados:", error);
+            }
+
+            // Generar las filas y columnas
+            for (let i = 0; i < filas; i++) {
+                const row = document.createElement("div");
+                row.classList.add("d-flex", "justify-content-start", "align-items-center", "mb-3");
+
+                // Crear el número de fila
+                const rowNumber = document.createElement("div");
+                rowNumber.textContent = `Fila ${i + 1}`;
+                rowNumber.classList.add("row-number", "me-3");
+                row.appendChild(rowNumber);
+
+                for (let j = 0; j < columnas; j++) {
+                    const seatPosition = `Fila:${i + 1} Asiento:${j + 1}`;
+                    const seat = document.createElement("div");
+                    seat.classList.add("seat");
+
+                    // Si el asiento está ocupado, márcalo como ocupado
+                    if (asientosOcupados.includes(seatPosition)) {
+                        seat.classList.add("occupied");
+                    } else {
+                        // Permitir seleccionar asientos libres
+                        seat.onclick = function () {
+                            if (!seat.classList.contains("selected")) {
+                                if (asientosSeleccionados.length < cantidad) {
+                                    seat.classList.add("selected");
+                                    asientosSeleccionados.push(seatPosition);
+                                } else {
+                                    alert("Has alcanzado el número máximo de entradas seleccionadas.");
+                                }
+                            } else {
+                                seat.classList.remove("selected");
+                                const index = asientosSeleccionados.indexOf(seatPosition);
+                                asientosSeleccionados.splice(index, 1);
+                            }
+                        };
+                    }
+                    row.appendChild(seat);
+                }
+
+                container.appendChild(row); // Agregar la fila al contenedor principal
+
+
+                // Insertar un separador entre bloques de 3 filas
+                if ((i + 1) % 3 === 0 && i < filas - 1) {
+                    const separator = document.createElement("div");
+                    separator.style.height = "20px"; // Espaciado entre bloques de filas
+                    separator.classList.add("w-100"); // Asegura separación completa
+                    container.appendChild(separator);
+                }
+            }
+        }
+
+
+        async function obtenerAsientosOcupados(peliculaId, horarioId) {
+            try {
+                const response = await fetch(`/Entradas/AsientosOcupados/${peliculaId}/${horarioId}`);
+                if (response.ok) {
+                    const asientosOcupados = await response.json();
+                    console.log("Asientos ocupados:", asientosOcupados);
+                    return asientosOcupados;
+                } else {
+                    console.error("Error al cargar los asientos ocupados:", response.statusText);
+                    return [];
+                }
+            } catch (error) {
+                console.error("Error en la solicitud:", error);
+                return [];
+            }
+        }
+
+        function guardarAsientos() {
+            if (asientosSeleccionados.length === 0) {
+                alert("Debes seleccionar al menos un asiento antes de guardar.");
+                return; // Detiene la ejecución si no hay asientos seleccionados
+            }
+
+            alert("Asientos guardados correctamente.");
+            // Cerrar el modal
+            const modalElement = document.getElementById('asientosModal');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            modalInstance.hide();
+        }
+
+        function validarCompra() {
+            const horario = document.getElementById("horarioId").value;
+            const cantidad = document.getElementById("cantidadEntradas").value;
+
+            if (!horario) {
+                alert("Por favor, selecciona un horario.");
+                return false;
+            }
+
+            if (!cantidad || cantidad <= 0) {
+                alert("Por favor, ingresa una cantidad válida de entradas.");
+                return false;
+            }
+
+            if (asientosSeleccionados.length === 0) {
+                alert("Debes seleccionar los asientos antes de confirmar la compra.");
+                return false;
+            }
+
+            // Actualizar los inputs ocultos con los datos seleccionados
+            document.getElementById("horarioIdInput").value = horario;
+            document.getElementById("cantidadEntradasInput").value = cantidad;
+            document.getElementById("asientosSeleccionados").value = asientosSeleccionados.join(",");
+
+            // Si todo está correcto, envía el formulario
+            document.querySelector("form").submit();
+        }
+
+        function validarCondiciones(event, enviarFormulario = false, contexto = "formulario") {
+            const horario = document.getElementById("horarioId").value;
+            const cantidad = document.getElementById("cantidadEntradas").value;
+
+            // Validar en contexto de formulario completo (Confirmar Compra)
+            if (contexto === "formulario") {
+                if (!horario) {
+                    alert("Por favor, selecciona un horario.");
+                    if (event) event.preventDefault();
+                    return false;
+                }
+
+                if (!cantidad || cantidad <= 0) {
+                    alert("Por favor, selecciona una cantidad válida de entradas.");
+                    if (event) event.preventDefault();
+                    return false;
+                }
+
+                if (asientosSeleccionados.length === 0) {
+                    alert("Debes seleccionar los asientos antes de confirmar la compra.");
+                    if (event) event.preventDefault();
+                    return false;
+                }
+
+                if (enviarFormulario) {
+                    document.getElementById("horarioIdInput").value = horario;
+                    document.getElementById("cantidadEntradasInput").value = cantidad;
+                    document.getElementById("asientosSeleccionados").value = asientosSeleccionados.join(",");
+                }
+                return true;
+            }
+
+            // Validar en contexto de modal (Abrir Modal)
+            if (contexto === "modal") {
+                if (!horario) {
+                    alert("Selecciona un horario antes de elegir los asientos.");
+                    return false;
+                }
+
+                if (!cantidad || cantidad <= 0) {
+                    alert("Selecciona una cantidad válida de entradas antes de elegir los asientos.");
+                    return false;
+                }
+
+                return true; // Todo correcto para abrir el modal
+            }
+
+            return false; // Por defecto, no hacer nada
+        }
+
+
+        function reiniciarFormulario() {
+            // Restablecer todos los selects al primer valor
+            const selects = document.querySelectorAll("select");
+            selects.forEach(select => {
+                select.selectedIndex = 0; // Reinicia al primer elemento
+            });
+
+            // Limpiar la selección de asientos
+            asientosSeleccionados.length = 0; // Vaciar los asientos seleccionados
+            const seats = document.querySelectorAll(".seat.selected");
+            seats.forEach(seat => {
+                seat.classList.remove("selected");
+            });
+
+            // Limpiar el campo de cantidad de entradas si es necesario
+            const cantidadEntradasInput = document.getElementById("cantidadEntradas");
+            if (cantidadEntradasInput) {
+                cantidadEntradasInput.value = "";
+            }
+        }
+
+        document.querySelector("form").addEventListener("submit", function (event) {
+            const horario = document.getElementById("horarioId").value;
+            const cantidad = parseInt(document.getElementById("cantidadEntradas").value, 10);
+            const asientos = document.getElementById("asientosSeleccionados").value;
+
+            if (!horario || cantidad <= 0 || !asientos) {
+                alert("Por favor, completa todos los campos correctamente.");
+                event.preventDefault(); // Evita que el formulario se envíe
+                return false;
+            }
+        });
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+
+
+            function validarFormularioPago() {
+                const numeroTarjeta = document.getElementById('numeroTarjeta').value.trim();
+                const cvv = document.getElementById('cvv').value.trim();
+                const fechaExpiracion = document.getElementById('fechaExpiracion').value.trim();
+
+                // Validar número de tarjeta
+                if (!/^\d{16}$/.test(numeroTarjeta)) {
+                    alert('El número de tarjeta debe contener exactamente 16 dígitos.');
+                    return false;
+                }
+
+                // Validar CVV
+                if (!/^\d{3}$/.test(cvv)) {
+                    alert('El CVV debe contener exactamente 3 dígitos.');
+                    return false;
+                }
+
+                // Validar fecha de expiración
+                if (!fechaExpiracion || !validarFechaExpiracion(fechaExpiracion)) {
+                    alert('Debe ingresar una fecha de expiración válida (mayor a la actual).');
+                    return false;
+                }
+
+                alert('Pago realizado con éxito.');
+                return true;
+            }
+
+            function validarFechaExpiracion(fechaExpiracion) {
+                const fechaActual = new Date();
+                const [year, month] = fechaExpiracion.split('-').map(Number);
+                const fechaIngresada = new Date(year, month - 1);
+
+                // Validar que la fecha ingresada sea mayor o igual que el mes actual
+                if (fechaIngresada <= fechaActual) {
+                    return false;
+                }
+                return true;
+            }
+
+
+            const btnMakePayment = document.getElementById('btnMakePayment');
+            const btnConfirmPurchase = document.getElementById('btnConfirmPurchase');
+            const btnSimulatePayment = document.getElementById('btnSimulatePayment');
+            const cantidadEntradas = document.getElementById('cantidadEntradas');
+            const promocionId = document.getElementById('promocionId');
+
+            const precioEntrada = 3.00;
+            let asientosGuardados = false; // Indicador para saber si los asientos están guardados
+
+            // Actualizar modal de pago
+            function actualizarModalPago() {
+                const cantidadEntradas = document.getElementById('cantidadEntradas');
+                const promocionId = document.getElementById('promocionId');
+                const numEntradas = parseInt(cantidadEntradas.value) || 0;
+
+                let descuento = 0;
+                if (promocionId && promocionId.selectedIndex > 0) {
+                    const opcionSeleccionada = promocionId.options[promocionId.selectedIndex];
+                    if (opcionSeleccionada && opcionSeleccionada.dataset.descuento) {
+                        descuento = parseFloat(opcionSeleccionada.dataset.descuento) || 0;
+                    }
+                }
+
+                const precioEntrada = 3.00;
+                const precioTotalSinDescuento = numEntradas * precioEntrada;
+                const descuentoAplicado = (precioTotalSinDescuento * descuento) / 100;
+                const precioFinal = precioTotalSinDescuento - descuentoAplicado;
+
+                // Asegurarte de que los elementos del modal existen antes de actualizarlos
+                const modalNumEntradas = document.getElementById('modalNumEntradas');
+                const modalPrecioTotalSinDescuento = document.getElementById('modalPrecioTotalSinDescuento');
+                const modalDescuento = document.getElementById('modalDescuento');
+                const modalPrecioFinal = document.getElementById('modalPrecioFinal');
+
+                if (modalNumEntradas) modalNumEntradas.textContent = numEntradas;
+                if (modalPrecioTotalSinDescuento) modalPrecioTotalSinDescuento.textContent = precioTotalSinDescuento.toFixed(2);
+                if (modalDescuento) modalDescuento.textContent = `%${descuento}`;
+                if (modalPrecioFinal) modalPrecioFinal.textContent = precioFinal.toFixed(2);
+            }
+
+            // Simulación de pago
+            btnMakePayment.addEventListener('click', function () {
+                if (btnMakePayment.disabled) {
+                    alert('Debes guardar los asientos antes de realizar el pago.');
+                    return;
+                }
+
+                actualizarModalPago();
+                const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                paymentModal.show();
+            });
+
+            // Confirmar pago
+            btnSimulatePayment.addEventListener('click', function () {
+                alert('Pago realizado con éxito.');
+                const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+                if (paymentModal) {
+                    paymentModal.hide();
+                }
+
+                btnMakePayment.classList.add('disabled');
+                btnMakePayment.disabled = true;
+
+                btnConfirmPurchase.classList.remove('disabled');
+                btnConfirmPurchase.disabled = false;
+
+                alert('Ahora puedes confirmar la compra.');
+            });
+
+            // Confirmar compra
+            btnConfirmPurchase.addEventListener('click', function () {
+                alert('Compra confirmada. ¡Gracias!');
+            });
+
+            // Habilitar/deshabilitar el botón de realizar pago
+            function verificarHabilitacionPago() {
+                const entradasValidas = cantidadEntradas.value > 0;
+
+                btnMakePayment.disabled = !(entradasValidas && asientosGuardados);
+                btnMakePayment.classList.toggle('disabled', !(entradasValidas && asientosGuardados));
+            }
+
+            // Detectar cambios en la cantidad de entradas
+            cantidadEntradas.addEventListener('input', verificarHabilitacionPago);
+
+            // Guardar asientos seleccionados
+            function guardarAsientos() {
+                if (asientosSeleccionados.length === 0) {
+                    alert("Debes seleccionar al menos un asiento antes de guardar.");
+                    return; // Detener si no hay asientos seleccionados
+                }
+
+                alert("Asientos guardados correctamente.");
+                asientosGuardados = true; // Marcar que los asientos están guardados
+                verificarHabilitacionPago(); // Verificar si el botón de realizar pago puede habilitarse
+
+                // Cerrar modal y limpiar backdrop
+                const modalElement = document.getElementById('asientosModal');
+                const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                if (modalInstance) {
+                    modalInstance.hide();
+                }
+                // Eliminar backdrop si queda en el DOM
+                const backdrop = document.querySelector('.modal-backdrop');
+                if (backdrop) {
+                    backdrop.remove();
+                }
+
+                // Rehabilitar el contenido principal
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+            }
+
+            // Asignar evento al botón de guardar asientos
+            const guardarBtn = document.querySelector(".btn-primary[onclick='guardarAsientos()']");
+            if (guardarBtn) {
+                guardarBtn.addEventListener('click', guardarAsientos);
+            }
+
+            document.getElementById('numeroTarjeta').addEventListener('input', function (e) {
+                this.value = this.value.replace(/\D/g, ''); // Permite solo números
+            });
+
+            document.getElementById('cvv').addEventListener('input', function (e) {
+                this.value = this.value.replace(/\D/g, ''); // Permite solo números
+            });
+
+            document.getElementById('formPago').addEventListener('submit', function (e) {
+                if (!validarFormularioPago()) {
+                    e.preventDefault(); // Previene el envío si la validación falla
+                }
+            });
+
+
+            document.getElementById('formPago').addEventListener('submit', function (e) {
+                if (!validarFormularioPago()) {
+                    e.preventDefault(); // Previene el envío si la validación falla
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

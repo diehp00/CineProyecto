@@ -1,0 +1,183 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Cine
+build_property.RootNamespace = Cine
+build_property.ProjectDir = E:\PROYECTO FINAL 2DAW\DiegoHilazoParra\CinePrimeraTerminada\Cine\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = E:\PROYECTO FINAL 2DAW\DiegoHilazoParra\CinePrimeraTerminada\Cine
+build_property._RazorSourceGeneratorDebug = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Admin/AdministradorDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5pc3RyYWRvckRhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Admin/GestionarEntradas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2VzdGlvbmFyRW50cmFkYXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Admin/GestionarHorarios.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2VzdGlvbmFySG9yYXJpb3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Admin/GestionarPeliculas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2VzdGlvbmFyUGVsaWN1bGFzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Admin/GestionarPromociones.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2VzdGlvbmFyUHJvbW9jaW9uZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Admin/GestionarSalas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2VzdGlvbmFyU2FsYXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Admin/GestionarUsuarios.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2VzdGlvbmFyVXN1YXJpb3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Entradas/Comprar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcQ29tcHJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Entradas/Confirmacion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcQ29uZmlybWFjaW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Entradas/DetalleCompra.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcRGV0YWxsZUNvbXByYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Entradas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Entradas/MisEntradas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcTWlzRW50cmFkYXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Entradas/UsuarioTemporal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcVXN1YXJpb1RlbXBvcmFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Home/Contacto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0by5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Horarios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9yYXJpb3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Horarios/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9yYXJpb3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Horarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9yYXJpb3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Peliculas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVsaWN1bGFzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Peliculas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVsaWN1bGFzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Peliculas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVsaWN1bGFzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Peliculas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVsaWN1bGFzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Promociones/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW9jaW9uZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Promociones/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW9jaW9uZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Promociones/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW9jaW9uZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Promociones/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW9jaW9uZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Registro/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cm9cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Salas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Salas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Salas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Usuarios/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Usuarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Usuarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/Usuarios/Perfil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcUGVyZmlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/PROYECTO FINAL 2DAW/DiegoHilazoParra/CinePrimeraTerminada/Cine/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

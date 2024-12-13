@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacto - CINEvSIION</title>
+    <!-- Enlace al CSS de Bootstrap -->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />    <style>
+        .contact-icon {
+            transition: transform 0.3s ease;
+        }
+        .contact-icon:hover {
+            transform: scale(1.2);
+        }
+        .map-container iframe {
+            border: 5px solid #f39c12;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container my-5">
+    <!-- Sección de ubicación -->
+    <div class="page-section">
+        <h2 class="text-center text-primary mb-4 fw-bold">¿Cómo llegar?</h2>
+        <div class="map-container text-center mb-5">
+            <!-- Mapa ubicación del cine -->
+            <iframe class="rounded shadow-sm" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3172.2096564213657!2d-6.939341784687385!3d37.26184897985564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0ad8b8d20ed3c5%3A0x526134f8b4ae85e8!2sInstituto%20de%20Educaci%C3%B3n%20Secundaria%20San%20Sebasti%C3%A1n!5e0!3m2!1ses!2ses!4v1698948822345!5m2!1ses!2ses"
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <!-- Sección de contacto -->
+        <h2 class="text-center text-primary mb-4 fw-bold">Contacto</h2>
+        <div class="row text-center align-items-center">
+            <!-- Dirección -->
+            <div class="col-lg-4 py-3">
+                <div class="mb-3">
+                    <img src="~/imgs/bx-map.png" class="contact-icon" width="48" alt="Dirección Icono" />
+                </div>
+                <h5 class="fw-bold">Dirección</h5>
+                <p class="text-secondary">IES SAN SEBASTIÁN</p>
+            </div>
+            <!-- Teléfono -->
+            <div class="col-lg-4 py-3">
+                <div class="mb-3">
+                    <img src="~/imgs/bx-phone.png" class="contact-icon" width="48" alt="Teléfono Icono" />
+                </div>
+                <h5 class="fw-bold">Teléfono</h5>
+                <p class="text-secondary">677135060</p>
+            </div>
+            <!-- Correo electrónico -->
+            <div class="col-lg-4 py-3">
+                <div class="mb-3">
+                    <img src="~/imgs/bx-envelope.png" class="contact-icon" width="48" alt="Correo Icono" />
+                </div>
+                <h5 class="fw-bold">Correo Electrónico</h5>
+                <p class="text-secondary">hilazoparra@gmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts de Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

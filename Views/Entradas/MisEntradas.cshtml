@@ -1,0 +1,40 @@
+@model IEnumerable<ComprarEntradaViewModel> 
+
+
+<div class="container mt-5">
+    <h2 class="text-primary">Mis Entradas</h2>
+    @if (!Model.Any())
+    {
+        <p class="text-muted">No has comprado ninguna entrada aún.</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Película</th>
+                        <th>Descripción</th>
+                        <th>Horario</th>
+                        <th>Sala</th>
+                        <th>Imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entrada in Model)
+                    {
+                        <tr>
+                            <td>@entrada.Titulo</td>
+                            <td>@entrada.Descripcion</td>
+                            <td>@entrada.Horarios.FirstOrDefault()?.FechaHora.ToString("g")</td>
+                            <td>@entrada.SalaNombre</td>
+                            <td>
+                                <img src="@entrada.ImagenUrl" alt="@entrada.Titulo" style="width: 100px; height: auto;">
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

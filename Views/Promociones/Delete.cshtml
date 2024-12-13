@@ -1,0 +1,45 @@
+@model Promocion
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eliminar Promocion - CINEvSIION</title>
+    @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+</head>
+<body>
+
+    <div class="container my-5">
+        <h2 class="text-center text-danger mb-4">Eliminar Promocion</h2>
+        
+        <div class="alert alert-warning" role="alert">
+            <strong>¿Estás seguro de que deseas eliminar esta Promocion?</strong> Esta acción no se puede deshacer.
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Información de la Promocion
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>Descripción:</strong> @Model.Descripcion</p>
+                <p class="card-text"><strong>Fecha de Inicio de Promocion</strong> @Model.FechaInicio.ToShortDateString()</p>
+                <p class="card-text"><strong>Fecha de Fin de Promocion:</strong> @Model.FechaFin.ToShortDateString()</p>
+                <p class="card-text"><strong>Descuento:</strong> @Model.Descuento</p>
+                <p class="card-text"><strong>Usuario:</strong> @Model.UsuarioId</p>
+            </div>
+        </div>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-flex justify-content-between mt-4">
+                <a class="btn btn-danger mt-3" href="/Admin/GestionarPromociones">Cancelar</a>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+@* Lo que se hara aqui sera comprar las entradas. Segun la pelicula que veamos nos saldra una nueva pantalla y lo que nos saldra es una serie de horarios, que seran
+los que tendra la sala donde se proyecte la pelicula. En la pantalla de carga saldrán la imagen de la pelicula a la izquierda (obviamente con un margen), 
+una pequeña descripción de la pelicula a la derecha y la valoracion que le han dado en IMdB. 
+
+Abajo saldran los horarios, le damos al que queramos ver la pelicula y nos saldran cuantas entradas queremos.
+
+Una vez eligamos las entradas que queremos ya se podran elegir los asientos queramos (lo haremos con javaScript) solo podras elegir el mismo numero de asientos
+que entradas hayas elegido.  *@
+
+
+@model IEnumerable<Entrada>
+
+@{
+    ViewData["Title"] = "Mis Entradas";
+}
+
+<div class="container mt-5">
+    <h2>Mis Entradas</h2>
+    
+    @if (!Model.Any())
+    {
+        <p>No tienes entradas compradas.</p>
+    }
+    else
+    {
+        <div class="list-group">
+            @foreach (var entrada in Model)
+            {
+                <div class="list-group-item">
+                    <h5>Película: @entrada.Pelicula.Titulo</h5>
+                    <p>Cantidad de Entradas: @entrada.CantidadEntradas</p>
+                    <p>Fecha de Compra: @entrada.FechaCompra.ToString("dd/MM/yyyy")</p>
+                </div>
+            }
+        </div>
+    }
+</div>

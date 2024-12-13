@@ -1,0 +1,66 @@
+@model Usuario
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro - CINEvSIION</title>
+    <!-- Enlace al CSS de Bootstrap -->
+    @* <link rel="stylesheet" href="~/css/site.css" /> *@
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+
+
+</head>
+
+<body>
+
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 80vh;">
+        <!-- Logo justo encima -->
+        <img src="~/imgs/LogoCine1.png" alt="Logo CineVision"
+            style="max-width: 200px; height: auto; margin-bottom: 20px;">
+
+        <div class="card p-5 shadow-lg" style="width: 100%; max-width: 400px; border-radius: 12px;">
+            <h2 class="text-center text-primary mb-4">Registro</h2>
+
+            <form asp-action="Index" method="post">
+                <div class="mb-3">
+                    <label for="NombreUsuario" class="form-label">Nombre de Usuario</label>
+                    <input asp-for="NombreUsuario" class="form-control" id="NombreUsuario" required
+                        placeholder="Introduce tu nombre de usuario" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="Contraseña" class="form-label">Contraseña</label>
+                    <input asp-for="Contraseña" type="password" class="form-control" id="Contraseña" required
+                        placeholder="Introduce tu contraseña" />
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="CorreoElectronico" class="form-label">Correo Electrónico</label>
+                    <input asp-for="CorreoElectronico" type="email" class="form-control shadow-sm"
+                        placeholder="Introduce tu correo" />
+                    <span asp-validation-for="CorreoElectronico" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Registrar</button>
+            </form>
+        </div>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>
